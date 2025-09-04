@@ -1,8 +1,5 @@
 'use client';
 
-import { useState } from 'react';
-import Image from 'next/image';
-import TaskIcon from '../ui/TaskIcon';
 import BasePanel from '../ui/BasePanel';
 import type { PanelItem } from '../../types/panel';
 
