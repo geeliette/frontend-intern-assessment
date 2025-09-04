@@ -2,13 +2,16 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import TaskIcon from './TaskIcon';
 
 interface AddStepPanelProps {
   isOpen: boolean;
   onClose: () => void;
+  onTasksClick: () => void;
+  onSearchClick: (step: { id: string; title: string; icon: string }) => void;
 }
 
-export function AddStepPanel({ isOpen, onClose }: AddStepPanelProps) {
+export function AddStepPanel({ isOpen, onClose, onTasksClick, onSearchClick }: AddStepPanelProps) {
   const [searchValue, setSearchValue] = useState('');
 
   const actions = [
@@ -16,13 +19,15 @@ export function AddStepPanel({ isOpen, onClose }: AddStepPanelProps) {
       id: 'tasks',
       icon: '/icons/tasks.svg',
       title: 'Tasks',
-      description: 'Add smart automations like extracting and summarising'
+      description: 'Add smart automations like extracting and summarising',
+      onClick: onTasksClick
     },
     {
       id: 'search',
       icon: '/icons/search.svg',
       title: 'Search',
-      description: 'Get text or data from uploaded repository or web'
+      description: 'Get text or data from uploaded repository or web',
+      onClick: onSearchClick
     }
   ];
 
@@ -33,7 +38,7 @@ export function AddStepPanel({ isOpen, onClose }: AddStepPanelProps) {
   if (!isOpen) return null;
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200 shadow-xs h-full overflow-y-auto">
+    <div className="bg-white rounded-lg border border-gray-200 shadow-xs h-auto overflow-y-auto">
       <div className="flex items-center justify-between p-4 border-b border-gray-200">
         <h2 className="text-lg font-medium text-gray-900">Add a step</h2>
         <button 
@@ -69,27 +74,28 @@ export function AddStepPanel({ isOpen, onClose }: AddStepPanelProps) {
             <div 
               key={action.id}
               className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 cursor-pointer group"
-              onClick={() => {
-                console.log(`Selected: ${action.title}`);
-                onClose();
-              }}
+              onClick={() => action.onClick({
+                id: action.id,
+                title: action.title,
+                icon: action.icon
+              })}
             >
               <div className="flex items-center">
-                <div className="w-8 h-8 bg-gray-100 rounded-md flex items-center justify-center mr-3">
-                  <Image src={action.icon} alt={action.title} width={16} height={16} />
-                </div>
+                <TaskIcon src={action.icon} alt={action.title} />
                 <div>
                   <div className="font-medium text-gray-900">{action.title}</div>
                   <div className="text-sm text-gray-500">{action.description}</div>
                 </div>
               </div>
-              <Image 
-                src="/icons/chevron-right.svg" 
-                alt="Right arrow" 
-                width={16} 
-                height={16} 
-                className="text-gray-400 group-hover:text-gray-600" 
-              />
+              {action.id === 'tasks' && (
+                <Image 
+                  src="/icons/chevron-right.svg" 
+                  alt="Right arrow" 
+                  width={16} 
+                  height={16} 
+                  className="text-gray-400 group-hover:text-gray-600" 
+                />
+              )}
             </div>
           ))}
         </div>
