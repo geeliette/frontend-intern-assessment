@@ -8,7 +8,7 @@ A custom workflow builder application built with **Next.js** and **TailwindCSS**
 1. Clone the repo:
    ```bash
    git clone https://github.com/geeliette/frontend-intern-assessment.git
-   cd aroga-app
+   cd frontend-intern-assessment/aroga-app
 
 2. Install dependencies:
     ```bash
