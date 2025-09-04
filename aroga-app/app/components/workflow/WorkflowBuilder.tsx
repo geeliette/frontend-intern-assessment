@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 import Image from "next/image";
-import { AddStepPanel } from './AddStepPanel';
-import { TasksPanel } from './TasksPanel';
-import { StepActionsMenu } from './StepActionsMenu';
+import { AddStepPanel } from '../panels/AddStepPanel';
+import { TasksPanel } from '../panels/TasksPanel';
+import { StepActionsMenu } from '../StepActionsMenu';
 
 type PanelState = 'closed' | 'add-step' | 'tasks';
 
